@@ -1,0 +1,24 @@
+# PoC PSEUDOCODE (Non-executable) — Illustrative only
+
+# Backdoor A: Forged SERVER_DELIVER (pseudocode, do NOT run outside VM)
+# 1) Create canonical envelope (string or bytes)
+ENVELOPE = {
+  "type": "SERVER_DELIVER",
+  "sender": "attacker-id",
+  "recipient": "victim-id",
+  "payload": "",        # optionally base64-encoded empty payload
+  "nonce": "0000",      # a freshness nonce if required by server
+  "sig": "server_sig_demo"  # the hardcoded token found in server_auth.py
+}
+# 2) Serialize envelope exactly as expected (lexicographic keys)
+SERIAL = canonical_json(ENVELOPE)
+# 3) Send SERIAL as a single WebSocket text frame to target's WS endpoint
+
+# Backdoor B: Mask recovery procedure (pseudocode)
+# 1) From captured TCP stream, extract WebSocket frame bytes: FRAME_PAYLOAD_MASKED
+# 2) KEY = repeating_bytes(b'MASK')  # 4-byte repeating mask
+# 3) RECOVERED = xor_bytes(FRAME_PAYLOAD_MASKED, KEY)
+# 4) Interpret RECOVERED as UTF-8 JSON
+
+# Note: The above pseudocode intentionally omits exact socket commands and file writes.
+# It is a conceptual outline for controlled lab reproduction only.
