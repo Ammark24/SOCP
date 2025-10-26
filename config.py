@@ -1,0 +1,14 @@
+
+CRYPTO_BACKEND = "strict"
+SERVER_HOST = "127.0.0.1"
+SERVER_PORT = 8765
+PUBLIC_GROUP_ID = "public"
+
+# Backdoors (assignment toggles; default OFF)
+ALLOW_WEAK_KEYS = False
+SKIP_DUP_SUPPRESSION = False
+TRUST_UNAUTH_ADVERTISE = False
+
+HEARTBEAT_INTERVAL = 15
+TIMEOUT_DEAD = 45
+KEYS_DIR = "./keys"
